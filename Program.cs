@@ -33,7 +33,7 @@ namespace TicTacToe
                 }
                 line = line.Substring(0, line.Length - 1);
                 Console.WriteLine(line);
-                if (y <= 1) 
+                if (y <= 1)
                 {
                     Console.WriteLine("------");
                 }
@@ -54,19 +54,35 @@ namespace TicTacToe
 
         static void InputRequest()
         {
-            Console.WriteLine("Write down the coordinates in the form [y, x] where you want to place your move.");
-            Console.WriteLine("And press enter.");
-            string userInputCoordinates = Console.ReadLine();
+            bool validPositionSelected = false;
+            int y = 0;
+            int x = 0;
 
-            //Remove spaces
-            userInputCoordinates = userInputCoordinates.Replace(" ", "");
+            while (!validPositionSelected)
+            {
+                Console.WriteLine("Write down the coordinates in the form [y, x] where you want to place your move.");
+                Console.WriteLine("And press enter.");
+                string userInputCoordinates = Console.ReadLine();
 
-            //Separate in an array values with ","
-            string[] coordinates = userInputCoordinates.Split(",");
+                //Remove spaces
+                userInputCoordinates = userInputCoordinates.Replace(" ", "");
 
-            //Convert coordinates to integer type
-            int y = Convert.ToInt32(coordinates[0]);
-            int x = Convert.ToInt32(coordinates[1]);
+                //Separate in an array values with ","
+                string[] coordinates = userInputCoordinates.Split(",");
+
+                //Convert coordinates to integer type
+                y = Convert.ToInt32(coordinates[0]);
+                x = Convert.ToInt32(coordinates[1]);
+
+                bool isValueDefined = IsValueInMatrix(y, x);
+                validPositionSelected = !isValueDefined;
+                if (validPositionSelected == false)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Box is occupied, please enter a valid coordinate.");
+                    Console.WriteLine();
+                }
+            }
 
             AddValue('X', y, x);
         }
