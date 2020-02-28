@@ -18,6 +18,9 @@ namespace TicTacToe
             {' ', ' ', ' '},
             {' ', ' ', ' '}};
 
+        /// <summary>
+        /// Prints the matrix
+        /// </summary>
         static void PrintMatrix()
         {
             Console.WriteLine();
@@ -52,6 +55,9 @@ namespace TicTacToe
             matrix[y, x] = value;
         }
 
+        /// <summary>
+        /// Asks user to input coordinates in this turn in column, row [y, x] format.
+        /// </summary>
         static void InputRequest()
         {
             bool validPositionSelected = false;
@@ -86,13 +92,20 @@ namespace TicTacToe
 
             AddValue('X', y, x);
         }
-
+        /// <summary>
+        /// Checks if the coordinates in the matrix are occupied.
+        /// </summary>
+        /// <param name="y"></param>
+        /// <param name="x"></param>
+        /// <returns>true or false</returns>
         static bool IsValueInMatrix(int y, int x)
         {
             bool isEmpty = matrix[y, x] == ' ';
             return !isEmpty;
         }
-
+        /// <summary>
+        /// Generates random coordinates for the CPU player in their turn. Adds "O" to the slot.
+        /// </summary>
         static void AIRequest()
         {
             Random r = new Random();
@@ -116,6 +129,10 @@ namespace TicTacToe
             AddValue('O', y, x);
         }
 
+        /// <summary>
+        /// Checks if any player, either User or CPU have filled a line in a column, row or diagonal.
+        /// </summary>
+        /// <returns>True or False</returns>
         static bool CheckWin()
         {
             char value = ' ';
@@ -141,7 +158,7 @@ namespace TicTacToe
                         sameValue = sameValue && (value == matrix[y, x]);
                     }
                 }
-                //sameValue determina si son iguales o no
+                //sameValue checks if are the same or not
                 if (sameValue && value != ' ')
                 {
                     return true;
@@ -164,7 +181,7 @@ namespace TicTacToe
                         sameValue = sameValue && (value == matrix[y, x]);
                     }
                 }
-                //sameValue determina si son iguales o no
+                //sameValue checks if are the same or not
                 if (sameValue && value != ' ')
                 {
                     return true;
