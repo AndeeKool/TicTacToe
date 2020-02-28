@@ -66,12 +66,41 @@ namespace TicTacToe
             AddValue('X', y, x);
         }
 
+        static bool IsValueInMatrix(int y, int x)
+        {
+            bool isEmpty = matrix[y,x] == ' ';
+            return !isEmpty;
+        }
+
+        static void AIRequest() {
+            Random r = new Random();
+            //Number between 0 and two , must be an integer
+            //The int changes between parenthesis transform a thing in another
+
+            bool validPositionSelected = false;
+
+            int y = 0;
+            int x = 0;
+
+            while (!validPositionSelected)
+            {
+                y = (int)Math.Floor(r.NextDouble() * 3);
+                x = Convert.ToInt32(Math.Floor(r.NextDouble() * 3));
+                bool isValuedDefined = IsValueInMatrix(y, x);
+
+                validPositionSelected = !isValuedDefined;
+            }
+
+            AddValue ('O', y, x);
+        }
+
 
         static void Main(string[] args)
         {
             PrintMatrix();
             Console.WriteLine();
             InputRequest();
+            AIRequest();
             PrintMatrix();
             Console.WriteLine();
 
