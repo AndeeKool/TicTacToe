@@ -20,6 +20,7 @@ namespace TicTacToe
 
         static void PrintMatrix()
         {
+            Console.WriteLine();
             for (int y = 0; y < MATRIX_SIZE; y++)
             {
                 string line = "";
@@ -32,8 +33,12 @@ namespace TicTacToe
                 }
                 line = line.Substring(0, line.Length - 1);
                 Console.WriteLine(line);
-                Console.WriteLine("------");
+                if (y <= 1) 
+                {
+                    Console.WriteLine("------");
+                }
             }
+            Console.WriteLine();
         }
 
         // <summary>
