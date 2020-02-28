@@ -68,11 +68,12 @@ namespace TicTacToe
 
         static bool IsValueInMatrix(int y, int x)
         {
-            bool isEmpty = matrix[y,x] == ' ';
+            bool isEmpty = matrix[y, x] == ' ';
             return !isEmpty;
         }
 
-        static void AIRequest() {
+        static void AIRequest()
+        {
             Random r = new Random();
             //Number between 0 and two , must be an integer
             //The int changes between parenthesis transform a thing in another
@@ -91,43 +92,146 @@ namespace TicTacToe
                 validPositionSelected = !isValuedDefined;
             }
 
-            AddValue ('O', y, x);
+            AddValue('O', y, x);
         }
 
+        static bool CheckThreeLines()
+        {
+            char value = ' ';
+            bool sameValue = true;
+            //Rows
+            // matrix [0,0]
+            // matrix [0, 1]
+            // matric [0, 2]
+
+            for (int y = 0; y < 3; y++)
+            {
+                value = ' ';
+                sameValue = true;
+
+                for (int x = 0; x < 3; x++)
+                {
+                    if (x == 0)
+                    {
+                        value = matrix[y, x];
+                    }
+                    else
+                    {
+                        sameValue = sameValue && (value == matrix[y, x]);
+                    }
+                }
+                //sameValue determina si son iguales o no
+                if (sameValue && value != ' ')
+                {
+                    return true;
+                }
+            }
+
+            for (int x = 0; x < 3; x++)
+            {
+                value = ' ';
+                sameValue = true;
+
+                for (int y = 0; y < 3; y++)
+                {
+                    if (y == 0)
+                    {
+                        value = matrix[y, x];
+                    }
+                    else
+                    {
+                        sameValue = sameValue && (value == matrix[y, x]);
+                    }
+                }
+                //sameValue determina si son iguales o no
+                if (sameValue && value != ' ')
+                {
+                    return true;
+                }
+            }
+
+            //diagonals
+            //[0,0], [1,1], [2,2]
+            value = ' ';
+            sameValue = true;
+            for (int i = 0; i < 3; i++)
+            {
+
+                if (i == 0)
+                {
+                    value = matrix[i, i];
+                }
+                else
+                {
+                    sameValue = sameValue && (value == matrix[i, i]);
+                }
+
+                if (i == 2 && sameValue && value != ' ')
+                {
+                    return true;
+                }
+            }
+
+            //[0,2] [1,1] [2,0]
+            value = ' ';
+            sameValue = true;
+            for (int y = 0; y < 3; y++)
+            {
+                int x = 2 - y;
+
+                if (y == 0)
+                {
+                    value = matrix[y, x];
+                }
+                else
+                {
+                    sameValue = sameValue && (value == matrix[y, x]);
+                }
+
+                if (y == 2 && sameValue && value != ' ')
+                {
+                    return true;
+                }
+            }
+
+
+            return false;
+        }
 
         static void Main(string[] args)
         {
+            //PrintMatrix();
+            //InputRequest();
+            //AIRequest();
+            //PrintMatrix();
+
+            bool gameEnded = false;
+            int turns = 0;
+            while (!gameEnded)
+            {
+                InputRequest();
+                turns++;
+                //Check if user won
+                gameEnded = CheckThreeLines();
+
+                //End after 9 turns
+                if (turns >= 9)
+                {
+                    gameEnded = true;
+                }
+                if (!gameEnded)
+                {
+                    AIRequest();
+                    turns++;
+                    //Check if AI won
+                    gameEnded = CheckThreeLines();
+                }
+                PrintMatrix();
+            }
+
+            Console.WriteLine("Game Over.");
             PrintMatrix();
-            Console.WriteLine();
-            InputRequest();
-            AIRequest();
-            PrintMatrix();
-            Console.WriteLine();
-
-            // bool gameEnded = false;
-            // int turns = 0;
-
-            // while(!gameEnded) {
-            //     InputRequest();
-            //     turns++;
-
-            //     //Check if user won
-            //     gameEnded = CheckThreeLines();
-
-            //     //End after 9 turns
-            //     if (turns >= 9) {
-            //         gameEnded = true;
-            //     }
-
-            //     if (!gameEnded) {
-            //         AIRequest();
-            //         turns++;
-            //         //Check if AI won
-            //         gameEnded = CheckThreeLines();
-            //     }
-
         }
-
     }
 }
 
